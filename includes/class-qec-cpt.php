@@ -14,11 +14,11 @@ class QEC_CPT
     public static function register()
     {
         $labels = [
-            'name' => __('Quick Email Capture', QEC_TEXTDOMAIN),
-            'singular_name' => __('Signup', QEC_TEXTDOMAIN),
-            'menu_name' => __('Quick Email Capture', QEC_TEXTDOMAIN),
-            'add_new_item' => __('Add Signup', QEC_TEXTDOMAIN),
-            'edit_item' => __('View Signup', QEC_TEXTDOMAIN),
+            'name' => __('Quick Email Capture', 'quick-email-capture'),
+            'singular_name' => __('Signup', 'quick-email-capture'),
+            'menu_name' => __('Quick Email Capture', 'quick-email-capture'),
+            'add_new_item' => __('Add Signup', 'quick-email-capture'),
+            'edit_item' => __('View Signup', 'quick-email-capture'),
         ];
 
         register_post_type(self::POST_TYPE, [

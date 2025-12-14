@@ -14,18 +14,21 @@ class QEC_Form
     {
         $opts = QEC_Plugin::opts();
 
-        $redirect_to = isset($_POST['qec_redirect_to']) ? esc_url_raw(wp_unslash($_POST['qec_redirect_to'])) : home_url('/');
+        $redirect_to = isset($_POST['qec_redirect_to'])
+            ? esc_url_raw(wp_unslash($_POST['qec_redirect_to']))
+            : home_url('/');
+
         if ($redirect_to === '') $redirect_to = home_url('/');
 
         $err = self::handle_submit($opts);
 
+        $url = remove_query_arg(['qec_thanks', 'qec_err'], $redirect_to);
+
         if ($err === '') {
-            $url = remove_query_arg(['qec_thanks', 'qec_err'], $redirect_to);
             wp_safe_redirect(add_query_arg('qec_thanks', '1', $url));
             exit;
         }
 
-        $url = remove_query_arg(['qec_thanks', 'qec_err'], $redirect_to);
         wp_safe_redirect(add_query_arg('qec_err', rawurlencode($err), $url));
         exit;
     }
@@ -61,11 +64,11 @@ class QEC_Form
         $html = '';
 
         if ($thanks) {
-            $html .= '<div class="qec-msg qec-success' . ($msg_extra ? ' ' . esc_attr($msg_extra) : '') . '" style="' . esc_attr($style_attr) . '"><strong>' . esc_html__('Success', QEC_TEXTDOMAIN) . '</strong> — ' . esc_html($opts['success_message']) . '</div>';
+            $html .= '<div class="qec-msg qec-success' . ($msg_extra ? ' ' . esc_attr($msg_extra) : '') . '" style="' . esc_attr($style_attr) . '"><strong>' . esc_html__('Success', 'quick-email-capture') . '</strong> — ' . esc_html($opts['success_message']) . '</div>';
         }
 
         if ($err !== '') {
-            $html .= '<div class="qec-msg qec-error' . ($msg_extra ? ' ' . esc_attr($msg_extra) : '') . '" style="' . esc_attr($style_attr) . '"><strong>' . esc_html__('Error', QEC_TEXTDOMAIN) . ':</strong> ' . esc_html($err) . '</div>';
+            $html .= '<div class="qec-msg qec-error' . ($msg_extra ? ' ' . esc_attr($msg_extra) : '') . '" style="' . esc_attr($style_attr) . '"><strong>' . esc_html__('Error', 'quick-email-capture') . ':</strong> ' . esc_html($err) . '</div>';
         }
 
         $action = esc_url(admin_url('admin-post.php'));
@@ -93,7 +96,7 @@ class QEC_Form
         }
 
         $html .= '<div class="qec-hp" aria-hidden="true">';
-        $html .= '<label for="qec_hp">' . esc_html__('Leave this field empty', QEC_TEXTDOMAIN) . '</label>';
+        $html .= '<label for="qec_hp">' . esc_html__('Leave this field empty', 'quick-email-capture') . '</label>';
         $html .= '<input id="qec_hp" name="qec_hp" type="text" autocomplete="off">';
         $html .= '</div>';
 
@@ -106,19 +109,19 @@ class QEC_Form
 
     private static function handle_submit($opts)
     {
-        $nonce = $_POST['qec_nonce'] ?? '';
+        $nonce = isset($_POST['qec_nonce']) ? sanitize_text_field(wp_unslash($_POST['qec_nonce'])) : '';
         if (!wp_verify_nonce($nonce, 'qec_submit')) return $opts['error_invalid'];
 
-        $hp = trim((string)($_POST['qec_hp'] ?? ''));
+        $hp = isset($_POST['qec_hp']) ? trim((string)wp_unslash($_POST['qec_hp'])) : '';
         if ($hp !== '') return $opts['error_invalid'];
 
-        $ts = (int)($_POST['qec_ts'] ?? 0);
+        $ts = isset($_POST['qec_ts']) ? (int)wp_unslash($_POST['qec_ts']) : 0;
         $min = max(0, (int)$opts['min_submit_seconds']);
         if ($min > 0 && (time() - $ts) < $min) return $opts['error_wait'];
 
-        $name = sanitize_text_field((string)($_POST['qec_name'] ?? ''));
-        $email = sanitize_email((string)($_POST['qec_email'] ?? ''));
-        $consent = (isset($_POST['qec_consent']) && $_POST['qec_consent'] === '1');
+        $name = isset($_POST['qec_name']) ? sanitize_text_field(wp_unslash($_POST['qec_name'])) : '';
+        $email = isset($_POST['qec_email']) ? sanitize_email(wp_unslash($_POST['qec_email'])) : '';
+        $consent = (isset($_POST['qec_consent']) && wp_unslash($_POST['qec_consent']) === '1');
 
         if ($name === '' || !is_email($email)) return $opts['error_required'];
         if ((int)$opts['consent_required'] === 1 && !$consent) return $opts['error_consent'];
@@ -159,7 +162,9 @@ class QEC_Form
         update_post_meta($pid, '_qec_consent', $consent ? 1 : 0);
         update_post_meta($pid, '_qec_created_gmt', $now_gmt);
         update_post_meta($pid, '_qec_source_url', self::current_url());
-        update_post_meta($pid, '_qec_source_ref', isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : '');
+
+        $ref = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
+        update_post_meta($pid, '_qec_source_ref', $ref);
 
         if ((int)$opts['store_ip'] === 1) update_post_meta($pid, '_qec_ip', $ip);
 
@@ -173,12 +178,15 @@ class QEC_Form
 
     private static function current_url()
     {
-        $uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '/';
-        return home_url($uri);
+        $uri = isset($_SERVER['REQUEST_URI']) ? (string)wp_unslash($_SERVER['REQUEST_URI']) : '/';
+        $uri = preg_replace('/[\r\n]/', '', $uri);
+        $uri = '/' . ltrim($uri, '/');
+        return esc_url_raw(home_url($uri));
     }
 
     private static function ip()
     {
-        return !empty($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+        $ip = !empty($_SERVER['REMOTE_ADDR']) ? (string)wp_unslash($_SERVER['REMOTE_ADDR']) : '';
+        return sanitize_text_field($ip);
     }
 }

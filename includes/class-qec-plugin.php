@@ -13,8 +13,6 @@ final class QEC_Plugin
 
     private function __construct()
     {
-        $this->load_textdomain();
-
         require_once QEC_PLUGIN_DIR . 'includes/class-qec-cpt.php';
         require_once QEC_PLUGIN_DIR . 'includes/class-qec-admin.php';
         require_once QEC_PLUGIN_DIR . 'includes/class-qec-form.php';
@@ -23,11 +21,6 @@ final class QEC_Plugin
         QEC_Form::init();
 
         if (is_admin()) QEC_Admin::init();
-    }
-
-    private function load_textdomain()
-    {
-        load_plugin_textdomain(QEC_TEXTDOMAIN, false, dirname(plugin_basename(QEC_PLUGIN_FILE)) . '/languages');
     }
 
     public static function activate()
@@ -66,17 +59,17 @@ final class QEC_Plugin
             'input_class' => '',
             'button_class' => '',
             'message_class' => '',
-            'consent_label' => __('I agree to receive emails. You can unsubscribe anytime.', QEC_TEXTDOMAIN),
-            'success_message' => __('Thanks! You have been subscribed.', QEC_TEXTDOMAIN),
-            'error_invalid' => __('Invalid submission.', QEC_TEXTDOMAIN),
-            'error_wait' => __('Please wait a moment before submitting.', QEC_TEXTDOMAIN),
-            'error_required' => __('Please provide a valid name and email.', QEC_TEXTDOMAIN),
-            'error_consent' => __('Please agree to receive emails.', QEC_TEXTDOMAIN),
-            'button_label' => __('Subscribe', QEC_TEXTDOMAIN),
-            'name_label' => __('Name', QEC_TEXTDOMAIN),
-            'email_label' => __('Email', QEC_TEXTDOMAIN),
-            'name_placeholder' => __('Your name', QEC_TEXTDOMAIN),
-            'email_placeholder' => __('you@example.com', QEC_TEXTDOMAIN),
+            'consent_label' => __('I agree to receive emails. You can unsubscribe anytime.', 'quick-email-capture'),
+            'success_message' => __('Thanks! You have been subscribed.', 'quick-email-capture'),
+            'error_invalid' => __('Invalid submission.', 'quick-email-capture'),
+            'error_wait' => __('Please wait a moment before submitting.', 'quick-email-capture'),
+            'error_required' => __('Please provide a valid name and email.', 'quick-email-capture'),
+            'error_consent' => __('Please agree to receive emails.', 'quick-email-capture'),
+            'button_label' => __('Subscribe', 'quick-email-capture'),
+            'name_label' => __('Name', 'quick-email-capture'),
+            'email_label' => __('Email', 'quick-email-capture'),
+            'name_placeholder' => __('Your name', 'quick-email-capture'),
+            'email_placeholder' => __('you@example.com', 'quick-email-capture'),
 
             'ui_border_color' => '#1d2327',
             'ui_border_width' => 1,
