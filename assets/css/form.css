@@ -1,63 +1,112 @@
-.qec-form{
-  --qec-border-color:#1d2327;
-  --qec-border-width:1px;
-  --qec-radius:12px;
-  --qec-button-bg:#1d2327;
-  --qec-button-text:#ffffff;
-  --qec-success-border:#00a32a;
-  --qec-error-border:#d63638;
-  --qec-input-height:44px;
+.aettaec-form {
+  --aettaec-border-color: #1d2327;
+  --aettaec-border-width: 1px;
+  --aettaec-radius: 12px;
+  --aettaec-button-bg: #1d2327;
+  --aettaec-button-text: #ffffff;
+  --aettaec-success-border: #00a32a;
+  --aettaec-error-border: #d63638;
+  --aettaec-input-height: 44px;
 
-  width:100%;
-  max-width:420px;
-  margin:0 auto;
-  padding:18px;
-  border:var(--qec-border-width) solid var(--qec-border-color);
-  border-radius:var(--qec-radius);
-  background:#fff;
-  color:#1d2327;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 18px;
+  border: var(--aettaec-border-width) solid var(--aettaec-border-color);
+  border-radius: var(--aettaec-radius);
+  background: #fff;
+  color: #1d2327;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-.qec-form label{display:block;font-size:14px;margin-bottom:6px;font-weight:600}
-
-.qec-form input[type="text"],.qec-form input[type="email"]{
-  width:100%;
-  height:var(--qec-input-height);
-  padding:10px;
-  margin-bottom:12px;
-  border:var(--qec-border-width) solid var(--qec-border-color);
-  border-radius:calc(var(--qec-radius) - 2px);
-  font-size:14px;
-  box-sizing:border-box
+.aettaec-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 600;
 }
 
-.qec-consent{display:flex;align-items:flex-start;gap:10px;margin:8px 0 14px}
-.qec-consent input{margin-top:2px;min-width:18px;min-height:18px}
-
-.qec-form button{
-  width:100%;
-  height:46px;
-  border:0;
-  background:var(--qec-button-bg);
-  color:var(--qec-button-text);
-  border-radius:calc(var(--qec-radius) - 2px);
-  cursor:pointer;
-  font-size:15px;
-  font-weight:700
+.aettaec-form input[type="text"],
+.aettaec-form input[type="email"] {
+  width: 100%;
+  height: var(--aettaec-input-height);
+  padding: 10px;
+  margin-bottom: 12px;
+  border: var(--aettaec-border-width) solid var(--aettaec-border-color);
+  border-radius: calc(var(--aettaec-radius) - 2px);
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-.qec-form button:focus,.qec-form input:focus{outline:3px solid currentColor;outline-offset:2px}
-.qec-hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
-
-.qec-msg{
-  max-width:420px;
-  margin:0 auto 12px auto;
-  padding:12px;
-  border-radius:calc(var(--qec-radius) - 2px)
+.aettaec-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 0 14px;
 }
 
-.qec-success{border:var(--qec-border-width) solid var(--qec-success-border)}
-.qec-error{border:var(--qec-border-width) solid var(--qec-error-border)}
+.aettaec-consent input {
+  margin-top: 2px;
+  min-width: 18px;
+  min-height: 18px;
+}
 
-@media (max-width:420px){.qec-form,.qec-msg{max-width:92vw}}
+.aettaec-form button {
+  width: 100%;
+  height: 46px;
+  border: 0;
+  background: var(--aettaec-button-bg);
+  color: var(--aettaec-button-text);
+  border-radius: calc(var(--aettaec-radius) - 2px);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  transition: opacity 0.2s ease;
+}
+
+.aettaec-form button:hover {
+  opacity: 0.9;
+}
+
+.aettaec-form button:focus,
+.aettaec-form input:focus {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+.aettaec-hp {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.aettaec-msg {
+  max-width: 420px;
+  margin: 0 auto 12px auto;
+  padding: 12px;
+  border-radius: calc(var(--aettaec-radius) - 2px);
+  box-sizing: border-box;
+}
+
+.aettaec-success {
+  border: var(--aettaec-border-width) solid var(--aettaec-success-border);
+  background-color: #f0f9f1;
+  color: #1e4620;
+}
+
+.aettaec-error {
+  border: var(--aettaec-border-width) solid var(--aettaec-error-border);
+  background-color: #fcf0f0;
+  color: #6a1a1a;
+}
+
+@media (max-width: 420px) {
+  .aettaec-form,
+  .aettaec-msg {
+    max-width: 92vw;
+  }
+}

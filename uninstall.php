@@ -1,16 +1,16 @@
 <?php
 if (!defined('WP_UNINSTALL_PLUGIN')) exit;
 
-$posts = get_posts([
-    'post_type' => 'qec_signup',
+$aettaec_signups_to_delete = get_posts([
+    'post_type' => 'aettaec_signup',
     'post_status' => 'any',
     'numberposts' => -1,
     'fields' => 'ids',
 ]);
 
-foreach ($posts as $pid) {
-    wp_delete_post($pid, true);
+foreach ($aettaec_signups_to_delete as $aettaec_target_id) {
+    wp_delete_post($aettaec_target_id, true);
 }
 
-delete_option('qec_options');
-wp_clear_scheduled_hook('qec_daily_purge');
+delete_option('aettaec_options');
+wp_clear_scheduled_hook('aettaec_daily_purge_event');

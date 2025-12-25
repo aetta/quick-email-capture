@@ -1,4 +1,4 @@
-=== Quick Email Capture ===
+=== Aetta Email Capture ===
 Contributors: aetta
 Tags: email capture, newsletter, opt-in, lead capture, lightweight
 Requires at least: 6.0
@@ -12,7 +12,7 @@ Simple, fast and lightweight email capture. No bloat.
 
 == Description ==
 
-Quick Email Capture is a minimal email capture plugin for WordPress.
+Aetta Email Capture is a minimal email capture plugin for WordPress.
 
 It focuses on one thing only: collecting email signups in a fast, clean and reliable way — without unnecessary features, external services or heavy scripts.
 
@@ -24,7 +24,7 @@ Just a simple opt-in form that works with any theme.
 
 = Key Features =
 
-* Simple shortcode: `[quick_email_capture]`
+* Simple shortcode: `[aetta_email_capture]`
 * Lightweight and fast (no JS frameworks)
 * GDPR-friendly consent checkbox
 * Built-in honeypot and basic anti-spam
@@ -37,9 +37,9 @@ Just a simple opt-in form that works with any theme.
 
 == Installation ==
 
-1. Upload the `quick-email-capture` folder to `/wp-content/plugins/`
+1. Upload the `aetta-email-capture` folder to `/wp-content/plugins/`
 2. Activate the plugin through the Plugins menu in WordPress
-3. Add the shortcode `[quick_email_capture]` to any page or post
+3. Add the shortcode `[aetta_email_capture]` to any page or post
 
 No configuration is required to start.
 
@@ -47,7 +47,7 @@ No configuration is required to start.
 
 Add the shortcode anywhere:
 
-[quick_email_capture]
+[aetta_email_capture]
 
 The form will handle validation, consent and submission automatically.
 
@@ -55,7 +55,7 @@ The form will handle validation, consent and submission automatically.
 
 You can configure the plugin under:
 
-WP Admin → Quick Email Capture → Settings
+WP Admin → Aetta Email Capture → Settings
 
 Available options include:
 
@@ -80,7 +80,7 @@ No inline styles or scripts are required.
 
 == Privacy ==
 
-Quick Email Capture stores submitted data as private entries in WordPress.
+Aetta Email Capture stores submitted data as private entries in WordPress.
 
 Depending on your settings, it may store:
 
