@@ -14,7 +14,7 @@ Simple, fast and lightweight email capture. No bloat.
 
 Aetta Email Capture is a minimal email capture plugin for WordPress.
 
-It focuses on one thing only: collecting email signups in a fast, clean and reliable way — without unnecessary features, external services or heavy scripts.
+It focuses on one thing only: collecting email signups in a fast, clean and reliable way without unnecessary features, external services or heavy scripts.
 
 No page builders.
 No tracking.
